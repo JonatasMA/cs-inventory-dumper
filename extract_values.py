@@ -27,12 +27,11 @@ class extract_values:
         microtime = str(round(time.time() * 1000))
         file = open(microtime+'.csv', "w", encoding="utf8")
 
-    def process(self, app):
+    def process(self):
         inventory = self.get_inventory()
         current_values = {}
         for iten in inventory :
             if (not 'Graffiti' in iten['market_hash_name']) and (iten['marketable'] == 1):
-                # app.setLabel('current', iten['market_hash_name'])
                 current_values[iten['market_hash_name']] = self.get_value(iten['market_hash_name'])
                 print(iten['market_hash_name'] + ": " + current_values[iten['market_hash_name']])
 

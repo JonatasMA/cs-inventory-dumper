@@ -15,18 +15,18 @@ def press():
     with open('result.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=';')
         spamwriter.writerow(['Item', 'Valor Pago', 'Valor Atual', 'Diferença'])
-        index = 2
+        index = 1
         for key in vd:
             print(key)
-            spamwriter.writerow([key, pd.get(key, 'R$ 0,00'), vd[key], f"=((C{index}-B{index})/B{index})"])
             index = index + 1
+            spamwriter.writerow([key, pd.get(key, 'R$ 0,00'), vd[key], f"=SEERRO((C{index}-B{index})/B{index}; 0)"])
 
         spamwriter.writerow([])
         last_row = index + 2
         spamwriter.writerow([
             'Total',
             f'=SUM(B2:B{index})',
-            f'=(SUM(C2:C{index}))',
+            f'=SUM(C2:C{index})',
             f'=SEERRO((C{last_row}-B{last_row})/B{last_row}; 0)'
         ])
 
