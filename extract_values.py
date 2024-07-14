@@ -21,7 +21,7 @@ class extract_values:
 
         response = requests.get(request_url)
         response = json.loads(response.content)
-        return response.get('lowest_price', 'R$ 0.00')
+        return response.get('lowest_price', 'R$ 0,00')
 
     def create_file(self):
         microtime = str(round(time.time() * 1000))
@@ -32,7 +32,8 @@ class extract_values:
         current_values = {}
         for iten in inventory :
             if (not 'Graffiti' in iten['market_hash_name']) and (iten['marketable'] == 1):
-                app.setTitle('current', iten['market_hash_name'])
+                # app.setLabel('current', iten['market_hash_name'])
                 current_values[iten['market_hash_name']] = self.get_value(iten['market_hash_name'])
+                print(iten['market_hash_name'] + ": " + current_values[iten['market_hash_name']])
 
         return current_values

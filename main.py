@@ -16,12 +16,19 @@ def press():
         spamwriter = csv.writer(csvfile, delimiter=';')
         spamwriter.writerow(['Item', 'Valor Pago', 'Valor Atual', 'Diferença'])
         index = 2
-        for key, value in vd:
-            spamwriter.writerow([key, pd[key], value, "=((C{index}-B{index})/B{index})"])
+        for key in vd:
+            print(key)
+            spamwriter.writerow([key, pd.get(key, 'R$ 0,00'), vd[key], f"=((C{index}-B{index})/B{index})"])
             index = index + 1
 
         spamwriter.writerow([])
-        spamwriter.writerow(['Total', '=SUM(B2:B39)', '=(SUM(C2:C39))', '=((C41-B41)/B41)'])
+        last_row = index + 2
+        spamwriter.writerow([
+            'Total',
+            f'=SUM(B2:B{index})',
+            f'=(SUM(C2:C{index}))',
+            f'=SEERRO((C{last_row}-B{last_row})/B{last_row}; 0)'
+        ])
 
 app = gui("CS Inventory Dumper", '500x200')
 # app.addLabel("lblMarketHistory", "Market history:")
@@ -31,5 +38,4 @@ app.addLabel('guide2', 'Input the saved file')
 app.addLabelFileEntry(title="marketHistory", label="Market history:")
 app.addLabelEntry(title='idUser', label="ID User:")
 app.addButton('dump', press)
-app.addLabel('current', '')
 app.go()
