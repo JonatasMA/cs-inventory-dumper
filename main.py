@@ -37,7 +37,7 @@ def check_progress():
             print(value)
             progress_bar.set(value)  # CTk progress bar expects 0.0–1.0
             progress_label.configure(text=f"{(value*100):.2f}%")
-            if progress_bar.get() == 100.00:
+            if value == 1:
                 dump.configure(state="normal")
     except queue.Empty:
         pass
